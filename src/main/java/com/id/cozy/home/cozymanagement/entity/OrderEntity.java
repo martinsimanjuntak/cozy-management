@@ -2,11 +2,13 @@ package com.id.cozy.home.cozymanagement.entity;
 
 import com.id.cozy.home.security.entity.UserEntity;
 import com.id.cozy.home.security.entity.base.BaseEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +18,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author martin
@@ -40,4 +44,12 @@ public class OrderEntity extends BaseEntity {
 
     @Column(name = "ORDER_DATE", nullable = false)
     private LocalDateTime orderDate;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItemEntity> items = new ArrayList<>();
+
+    public void addItem(OrderItemEntity item) {
+        items.add(item);
+        item.setOrder(this);
+    }
 }

@@ -27,14 +27,14 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Setter
 @Getter
-public class OrderTimeEntity extends BaseEntity {
+public class OrderItemEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID", nullable = false)
     private OrderEntity order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
-    private ProductEntity productId;
+    private ProductEntity product;
 
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
